@@ -35,3 +35,18 @@ function freelancer_pingback_header() {
 	}
 }
 add_action( 'wp_head', 'freelancer_pingback_header' );
+
+/**
+ * Options Page
+ */
+if( function_exists( 'acf_add_options_page' ) ) {
+
+  acf_add_options_page(array(
+    'page_title' 	=> __( 'Theme Options', 'freelancer' ),
+    'menu_title'	=> __( 'Theme Options', 'freelancer' ),
+    'menu_slug' 	=> 'theme-options',
+    'capability'	=> 'edit_posts',
+    'redirect'		=> false
+  ));
+
+}
