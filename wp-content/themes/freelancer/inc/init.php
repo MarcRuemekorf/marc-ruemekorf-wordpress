@@ -100,7 +100,7 @@ function services_init() {
     'label'                 => __( 'service', 'freelancer' ),
     'description'           => __( 'Post type for services', 'freelancer' ),
     'labels'                => $labels,
-    'supports'              => array( 'title', 'editor', 'thumbnail' ),
+    'supports'              => array( 'title', 'editor', 'thumbnail', 'excerpt' ),
     'taxonomies'            => array( 'webdesign', ' web-development', ' hosting', ' support' ),
     'hierarchical'          => false,
     'public'                => true,

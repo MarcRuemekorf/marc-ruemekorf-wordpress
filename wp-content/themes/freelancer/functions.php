@@ -7,9 +7,9 @@
  * @package Freelancer
  */
 
-if ( ! defined( '_S_VERSION' ) ) {
-	// Replace the version number of the theme on each release.
-	define( '_S_VERSION', '1.0.0' );
+if ( ! defined( 'FREELANCER_VERSION' ) ) {
+  // Replace the version number of the theme on each release.
+  define( 'FREELANCER_VERSION', '1.0.0' );
 }
 
 /**
@@ -49,7 +49,7 @@ function freelancer_setup() {
 	// This theme uses wp_nav_menu() in one location.
 	register_nav_menus(
 		array(
-			'menu-1' => esc_html__( 'Primary', 'freelancer' ),
+			'header-1' => esc_html__( 'Header Menu 1', 'freelancer' ),
 		)
 	);
 
@@ -138,10 +138,22 @@ add_action( 'widgets_init', 'freelancer_widgets_init' );
  * Enqueue scripts and styles.
  */
 function freelancer_scripts() {
-	wp_enqueue_style( 'freelancer-style', get_stylesheet_uri(), array(), _S_VERSION );
+
+  // Register styles & scripts
+  wp_register_style('google-fonts', 'https://fonts.googleapis.com/css2?family=Titillium+Web:ital,wght@0,300;0,600;0,700;1,300&display=swap' );
+  wp_register_script( 'slick', get_template_directory_uri() . '/vendor/slick/slick.js', array( 'jquery' ), FREELANCER_VERSION, true );
+  wp_register_script( 'slick-initializer', get_template_directory_uri() . '/js/slick-initializer.js', array( 'jquery' ), FREELANCER_VERSION, true );
+
+	wp_enqueue_style( 'freelancer-style', get_stylesheet_uri(), array(), FREELANCER_VERSION );
 	wp_style_add_data( 'freelancer-style', 'rtl', 'replace' );
 
-	wp_enqueue_script( 'freelancer-navigation', get_template_directory_uri() . '/js/navigation.js', array(), _S_VERSION, true );
+	wp_enqueue_script( 'freelancer-navigation', get_template_directory_uri() . '/js/navigation.js', array(), FREELANCER_VERSION, true );
+  wp_enqueue_script('jquery');
+
+  if ( is_page_template('template-homepage.php' ) ) {
+    wp_enqueue_script( 'slick' );
+    wp_enqueue_script( 'slick-initializer' );
+  }
 
 	if ( is_singular() && comments_open() && get_option( 'thread_comments' ) ) {
 		wp_enqueue_script( 'comment-reply' );
@@ -180,4 +192,3 @@ require get_template_directory() . '/inc/customizer.php';
 if ( defined( 'JETPACK__VERSION' ) ) {
 	require get_template_directory() . '/inc/jetpack.php';
 }
-

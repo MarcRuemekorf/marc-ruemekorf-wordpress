@@ -56,6 +56,22 @@ function freelancer_customize_partial_blogdescription() {
  * Binds JS handlers to make Theme Customizer preview reload changes asynchronously.
  */
 function freelancer_customize_preview_js() {
-	wp_enqueue_script( 'freelancer-customizer', get_template_directory_uri() . '/js/customizer.js', array( 'customize-preview' ), _S_VERSION, true );
+	wp_enqueue_script( 'freelancer-customizer', get_template_directory_uri() . '/js/customizer.js', array( 'customize-preview' ), FREELANCER_VERSION, true );
 }
 add_action( 'customize_preview_init', 'freelancer_customize_preview_js' );
+
+/**
+ * @param $wp_customize
+ */
+function freelancer_theme_customize_register( $wp_customize ) {
+
+  // Remove Control
+  $wp_customize->remove_control("header_image");
+  $wp_customize->remove_control("custom_logo");
+
+  // Remove Section
+  $wp_customize->remove_section("colors");
+  $wp_customize->remove_section("background_image");
+
+}
+add_action( "customize_register", "freelancer_theme_customize_register" );

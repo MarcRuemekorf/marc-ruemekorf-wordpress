@@ -1,0 +1,49 @@
+.text {
+  margin-top: 9rem;
+  margin-bottom: 9rem;
+  .text__container {
+    @include container;
+    @include center-block;
+  }
+
+  .text__heading {
+    @include max-width('md');
+    margin-top: 0;
+    margin-bottom: 1.5rem;
+  }
+
+  .text__subheading {
+    @include font-size('xl');
+  }
+
+  .text__rows {
+    margin-top: 6rem;
+    margin-bottom: 6rem;
+
+    .text__row {
+
+      &.cols--1 {
+        @include max-width('md');
+        margin-left: auto;
+      }
+
+      &.cols--2 {
+        @include max-width('lg');
+        margin-left: auto;
+
+        @include screen('md') {
+          display: grid;
+          grid-template-columns: repeat(2, minmax(0, 1fr));
+          column-gap: 2rem;
+          row-gap: 2rem;
+        }
+      }
+
+      &.divider--top {
+        padding-top: 1.5rem;
+        border-top: solid 2px $color__gray-200;
+        margin-top: 3rem;
+      }
+    }
+  }
+}

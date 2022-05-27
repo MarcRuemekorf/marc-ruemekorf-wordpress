@@ -36,6 +36,33 @@ function freelancer_pingback_header() {
 }
 add_action( 'wp_head', 'freelancer_pingback_header' );
 
+
+if ( ! function_exists( 'freelancer_mce_buttons' ) ) {
+  /**
+   * Activate additional MCE settings
+   * @param $buttons
+   * @return mixed
+   */
+  function freelancer_mce_buttons( $buttons ) {
+    array_unshift( $buttons, 'fontsizeselect' ); // Add Font Size Select
+    return $buttons;
+  }
+}
+add_filter( 'mce_buttons_2', 'freelancer_mce_buttons' );
+
+if ( ! function_exists( 'freelancer_mce_text_sizes' ) ) {
+  /**
+   * Customize mce editor font sizes
+   * @param $initArray
+   * @return mixed
+   */
+  function freelancer_mce_text_sizes( $initArray ){
+    $initArray['fontsize_formats'] = "11pt 12pt 14pt 18pt 24pt 42pt 60pt";
+    return $initArray;
+  }
+}
+add_filter( 'tiny_mce_before_init', 'freelancer_mce_text_sizes' );
+
 /**
  * Options Page
  */

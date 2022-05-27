@@ -1,11 +1,154 @@
-// Center block
-@mixin center-block {
-	display: block;
-	margin-left: auto;
-	margin-right: auto;
+/*--------------------------------------------------------------
+# Media Queries
+--------------------------------------------------------------*/
+$breakpoint-sm: 640px;
+$breakpoint-md: 768px;
+$breakpoint-lg: 1024px;
+$breakpoint-xl: 1280px;
+
+@mixin screen($size, $type: min-width, $pixels: $breakpoint-sm) {
+	@if $size == 'sm' {
+		@media screen and ($type: $breakpoint-sm) {
+			@content;
+		}
+	}
+	@else if $size == 'md' {
+		@media screen and ($type: $breakpoint-md) {
+			@content;
+		}
+	}
+	@else if $size == 'lg' {
+		@media screen and ($type: $breakpoint-lg) {
+			@content;
+		}
+	}
+	@else if $size == 'xl' {
+		@media screen and ($type: $breakpoint-xl) {
+			@content;
+		}
+	}
+	@else if $size == 'custom' {
+		@media screen and ($type: $pixels + px) {
+			@content;
+		}
+	}
+	@else {
+		@content;
+	}
 }
 
-// Column width with margin
-@mixin column-width($numberColumns: 3) {
-	width: map-get($columns, $numberColumns) - ( ( $columns__margin * ( $numberColumns - 1 ) ) / $numberColumns );
+/*--------------------------------------------------------------
+# Typography
+--------------------------------------------------------------*/
+@function calculateRem($size) {
+	$remSize: $size / 16px;
+	@return $remSize * 1rem;
+}
+
+@mixin font-size($size) {
+
+	@if $size == 'sm' {
+		font-size: 0.875rem; /* 14px */
+		line-height: 1.25rem; /* 20px */
+	}
+
+	@if $size == 'base' {
+		font-size: 1rem; /* 16px */
+		line-height: 1.5rem; /* 24px */
+	}
+
+	@if $size == 'lg' {
+		font-size: 1.125rem; /* 18px */
+		line-height: 1.75rem; /* 28px */
+	}
+
+	@if $size == 'xl' {
+		font-size: 1.25rem; /* 20px */
+		line-height: 1.75rem; /* 28px */
+	}
+
+	@if $size == '2xl' {
+		font-size: 1.5rem; /* 24px */
+		line-height: 2rem; /* 32px */
+	}
+
+	@if $size == '3xl' {
+		font-size: 1.875rem; /* 30px */
+		line-height: 2.25rem; /* 36px */
+	}
+
+	@if $size == '4xl' {
+		font-size: 2.25rem; /* 36px */
+		line-height: 2.75rem; /* 44px */
+	}
+
+	@if $size == '5xl' {
+		font-size: 3rem; /* 48px */
+		line-height: 1.125;
+	}
+
+	@if $size == '6xl' {
+		font-size: 3.75rem; /* 60px */
+		line-height: 1;
+	}
+
+	@if $size == '8xl' {
+		font-size: 6rem; /* 96px */
+		line-height: 1;
+	}
+}
+
+/*--------------------------------------------------------------
+# Containers & Wrappers
+--------------------------------------------------------------*/
+// Center block
+@mixin center-block {
+	margin: 0 auto;
+}
+
+// Container
+@mixin container($size: 'xl') {
+	padding: 0 1.5rem;
+	width: 100%;
+
+	@if $size == 'sm' {
+		max-width: 640px;
+	}
+
+	@else if $size == 'md' {
+		max-width: 768px;
+	}
+
+	@else if $size == 'lg' {
+		max-width: 1024px;
+	}
+
+	@else if $size == 'xl' {
+		max-width: 1280px;
+	}
+}
+
+/*--------------------------------------------------------------
+# Sizing
+--------------------------------------------------------------*/
+@mixin max-width($size) {
+	@if $size == 'sm' {
+		max-width: 640px;
+	}
+
+	@else if $size == 'md' {
+		max-width: 768px;
+	}
+
+	@else if $size == 'lg' {
+		max-width: 1024px;
+	}
+
+	@else if $size == 'xl' {
+		max-width: 1280px;
+	}
+
+	@else if $size == 'full' {
+		max-width: 100%;
+	}
 }

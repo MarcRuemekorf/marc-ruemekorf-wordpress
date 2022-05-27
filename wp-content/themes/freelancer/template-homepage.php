@@ -10,26 +10,16 @@ get_header(); ?>
 
       <?php
       /**
-       * Content: Header
+       * Content: Hero
        */
+      get_template_part( 'template-parts/content', 'hero' );
       ?>
 
       <?php
       /**
-       * Content: Expertise
+       * Content: Body
        */
-      ?>
-
-      <?php
-      /**
-       * Content: Cases
-       */
-      ?>
-
-      <?php
-      /**
-       * Content: Services Menu
-       */
+      get_template_part( 'template-parts/content', 'body' );
       ?>
 
     </div>

@@ -5,4 +5,43 @@ h4,
 h5,
 h6 {
 	clear: both;
+	font-weight: 600;
+}
+
+h1 {
+	@include font-size('5xl');
+
+	@include screen('md') {
+		@include font-size('8xl');
+	}
+}
+
+h2 {
+	@include font-size('3xl');
+
+	@include screen('md') {
+		@include font-size('5xl');
+	}
+}
+
+h3 {
+	@include font-size('2xl');
+
+	@include screen('md') {
+		@include font-size('4xl');
+	}
+}
+
+h4 {
+	@include font-size('xl');
+
+	@include screen('md') {
+		@include font-size('2xl');
+	}
+}
+
+h5 {
+	@include screen('md') {
+		@include font-size('base');
+	}
 }
