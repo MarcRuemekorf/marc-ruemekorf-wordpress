@@ -7,7 +7,7 @@ if (have_rows('flexible_content')):
   while (have_rows('flexible_content')) : the_row();
 
     // Services Layout
-    if (get_row_layout() == 'services_layout'):
+    if ( get_row_layout() == 'services_layout' ):
       $heading        = get_sub_field('services_layout_heading');
       $subheading     = get_sub_field('services_layout_subheading');
       $manual_select  = get_sub_field('services_layout_manual_select');
@@ -78,7 +78,7 @@ if (have_rows('flexible_content')):
 
     <?php
     // Cases Layout
-    elseif (get_row_layout() == 'cases_layout'):
+    elseif ( get_row_layout() == 'cases_layout' ):
       $heading        = get_sub_field('cases_layout_heading');
       $subheading     = get_sub_field('cases_layout_subheading');
       $manual_select  = get_sub_field('cases_layout_manual_select');
@@ -139,12 +139,29 @@ if (have_rows('flexible_content')):
 
     <?php
     // Text Layout
-    elseif (get_row_layout() == 'text_layout'):
-      $heading = get_sub_field('text_layout_heading');
-      $subheading = get_sub_field('text_layout_subheading');
+    elseif ( get_row_layout() == 'text_layout' ):
+      $heading    = get_sub_field( 'text_layout_heading');
+      $subheading = get_sub_field( 'text_layout_subheading' );
+      $theme      = get_sub_field( 'text_layout_theme' );
+      $margin     = get_sub_field( 'text_layout_spacing' )['text_layout_margin'];
+      $padding    = get_sub_field( 'text_layout_spacing' )['text_layout_padding'];
+      $spacing    = array();
+
+      if($margin && in_array('top', $margin) ) :
+        array_push($spacing, 'has-margin--top');
+      endif;
+      if($margin && in_array('bottom', $margin) ) :
+        array_push($spacing, 'has-margin--bottom');
+      endif;
+      if($padding && in_array('top', $padding) ) :
+        array_push($spacing, 'has-padding--top');
+      endif;
+      if($padding && in_array('bottom', $padding) ) :
+        array_push($spacing, 'has-padding--bottom');
+      endif;
       ?>
 
-      <section class="text">
+      <section class="text <?php echo 'text--' . $theme ?> <?php echo implode(' ', $spacing); ?>">
         <div class="text__container">
           <h2 class="text__heading">
             <?php echo $heading; ?>
@@ -170,7 +187,7 @@ if (have_rows('flexible_content')):
                     </div>
                   </div>
                 <?php else : ?>
-                  <div class="text__row cols--1">
+                  <div class="text__row cols--1<?php echo ' divider--' . $divider; echo $class ? ' ' . $class : null; ?>">
                     <div class="col">
                       <?php echo $content['text_repeater_column_one'] ?>
                     </div>
@@ -185,27 +202,112 @@ if (have_rows('flexible_content')):
     <?php
     // FAQ Layout
     elseif (get_row_layout() == 'faq_layout'):
-      $heading = get_sub_field('faq_layout_heading');
+      $heading    = get_sub_field('faq_layout_heading');
       $subheading = get_sub_field('faq_layout_subheading');
+      $theme      = get_sub_field( 'faq_layout_theme' );
+      $margin     = get_sub_field( 'faq_layout_spacing' )['faq_layout_margin'];
+      $padding    = get_sub_field( 'faq_layout_spacing' )['faq_layout_padding'];
+      $spacing    = array();
+
+      if($margin && in_array('top', $margin) ) :
+        array_push($spacing, 'has-margin--top');
+      endif;
+      if($margin && in_array('bottom', $margin) ) :
+        array_push($spacing, 'has-margin--bottom');
+      endif;
+      if($padding && in_array('top', $padding) ) :
+        array_push($spacing, 'has-padding--top');
+      endif;
+      if($padding && in_array('bottom', $padding) ) :
+        array_push($spacing, 'has-padding--bottom');
+      endif;
+
       ?>
 
-      <section class="text">
-        <div class="text__container">
-          <h2 class="text__heading">
+      <section class="faq <?php echo 'faq--' . $theme; ?> <?php echo implode(' ', $spacing); ?>">
+        <div class="faq__container">
+          <h2 class="faq__heading">
             <?php echo $heading; ?>
           </h2>
-          <div class="text__subheading">
+          <div class="faq__subheading">
             <?php echo $subheading; ?>
           </div>
 
           <?php if (have_rows('faq_layout_repeater')) : ?>
-            <div class="text__rows">
+            <div class="faq__rows">
               <?php while (have_rows('faq_layout_repeater')) : the_row();
-                $class = get_sub_field('text_repeater_class');
+                $class = get_sub_field('faq_repeater_class');
                 $question = get_sub_field('faq_repeater_question');
                 $answer = get_sub_field('faq_repeater_answer');
+                $status   = get_sub_field( 'faq_repeater_status' );
                 if ( !empty($question) ) : ?>
+                <div class="faq__row<?php echo $status ? ' ' . 'active' : null; ?>">
+                  <div class="faq__header">
+                    <p><?php echo $question; ?></p>
+                    <span class="material-symbols-outlined icon">expand_more</span>
+                  </div>
+                  <div class="faq__body">
+                    <?php echo $answer; ?>
+                  </div>
+                </div>
+                <?php endif;
+              endwhile; ?>
+            </div>
+          <?php endif; ?>
+        </div>
+      </section>
 
+    <?php
+    // FAQ Layout
+    elseif (get_row_layout() == 'steps_layout'):
+      $heading    = get_sub_field('steps_layout_heading');
+      $subheading = get_sub_field('steps_layout_subheading');
+      $count      = 0;
+      $theme      = get_sub_field( 'steps_layout_theme' );
+      $margin     = get_sub_field( 'steps_layout_spacing' )['steps_layout_margin'];
+      $padding    = get_sub_field( 'steps_layout_spacing' )['steps_layout_padding'];
+      $spacing    = array();
+
+      if($margin && in_array('top', $margin) ) :
+        array_push($spacing, 'has-margin--top');
+      endif;
+      if($margin && in_array('bottom', $margin) ) :
+        array_push($spacing, 'has-margin--bottom');
+      endif;
+      if($padding && in_array('top', $padding) ) :
+        array_push($spacing, 'has-padding--top');
+      endif;
+      if($padding && in_array('bottom', $padding) ) :
+        array_push($spacing, 'has-padding--bottom');
+      endif;
+      ?>
+
+      <section class="steps <?php echo 'steps--' . $theme; ?> <?php echo implode(' ', $spacing); ?>">
+        <div class="steps__container">
+          <h2 class="steps__heading">
+            <?php echo $heading; ?>
+          </h2>
+          <div class="steps__subheading">
+            <?php echo $subheading; ?>
+          </div>
+
+          <?php if (have_rows('steps_layout_repeater')) : ?>
+            <div class="steps__rows">
+              <?php while (have_rows('steps_layout_repeater')) : the_row();
+                $class = get_sub_field('steps_repeater_class');
+                $text = get_sub_field('steps_repeater_text');
+                $count++;
+                if ( !empty($text) ) : ?>
+                  <div class="steps__row">
+                    <div class="steps__counter">
+                      <span class="steps__count">
+                        <?php echo '0' . $count; ?>
+                      </span>
+                    </div>
+                    <div class="steps__body">
+                      <?php echo $text; ?>
+                    </div>
+                  </div>
                 <?php endif;
               endwhile; ?>
             </div>

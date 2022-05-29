@@ -20,7 +20,11 @@ $theme        = get_field( 'hero_theme' );
     <?php
     if( $media == 'image' ): ?>
     <div class="hero__image">
-      <img src="<?php echo $image[ 'src' ]; ?>" alt="<?php echo $image[ 'alt' ]; ?>">
+      <?php if( $image ) : ?>
+        <img src="<?php echo $image[ 'src' ]; ?>" alt="<?php echo $image[ 'alt' ]; ?>">
+      <?php else : ?>
+        <?php freelancer_post_thumbnail(); ?>
+      <?php endif; ?>
     </div>
     <?php endif;
 

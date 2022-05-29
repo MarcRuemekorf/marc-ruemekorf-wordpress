@@ -1,6 +1,57 @@
 .text {
-  margin-top: 9rem;
-  margin-bottom: 9rem;
+
+  &.text--black-white {
+    background-color: $color__gray-900;
+    color: #fff;
+
+    a {
+      color: #fff;
+
+      &.button--link {
+        &:after {
+          background-color: #fff;
+        }
+      }
+    }
+
+    .text__row {
+      border-color: $color__gray-700;
+    }
+  }
+
+  &.text--white-black {
+    background-color: #fff;
+    color: $color__gray-900;
+
+    a {
+      color: $color__gray-900;
+
+      &.button--link {
+        &:after {
+          background-color: #fff;
+        }
+      }
+    }
+
+    .text__row {
+      border-color: $color__gray-200;
+    }
+  }
+
+  &.has-margin--top {
+    margin-top: 9rem;
+  }
+  &.has-margin--bottom {
+    margin-bottom: 9rem;
+  }
+
+  &.has-padding--top {
+    padding-top: 6rem;
+  }
+  &.has-padding--bottom {
+    padding-bottom: 6rem;
+  }
+
   .text__container {
     @include container;
     @include center-block;
@@ -18,9 +69,16 @@
 
   .text__rows {
     margin-top: 6rem;
-    margin-bottom: 6rem;
 
     .text__row {
+
+      h1,
+      h2,
+      h3,
+      h4,
+      h5 {
+        margin-top: 0;
+      }
 
       &.cols--1 {
         @include max-width('md');
@@ -41,8 +99,16 @@
 
       &.divider--top {
         padding-top: 1.5rem;
-        border-top: solid 2px $color__gray-200;
+        border-top-style: solid;
+        border-top-width: 2px;
         margin-top: 3rem;
+      }
+
+      &.divider--bottom {
+        padding-bottom: 1.5rem;
+        border-bottom-style: solid;
+        border-bottom-width: 2px;
+        margin-bottom: 3rem;
       }
     }
   }

@@ -43,7 +43,16 @@ $company_details      = get_field('globals_company_details', 'option');
         </li>
       </ul><!-- .site-info -->
       <div class="site-footer__branding">
+        <span class="material-symbols-outlined icon">translate</span>
         <?php
+        wp_nav_menu(
+          array(
+            'theme_location'  => 'footer-language',
+            'menu_id'         => 'language-menu',
+            'menu_class'      => 'language-switcher',
+          )
+        );
+
         $logo = get_field('globals_company_logo', 'option');
         if( !empty( $logo[ 'globals_header_logo_light' ] ) ): ?>
           <a class="site-footer__logo" href="<?php echo esc_url(home_url('/')); ?>">

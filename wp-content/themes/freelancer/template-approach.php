@@ -10,9 +10,9 @@ get_header(); ?>
 
     <?php
     /**
-     * Content: Header
+     * Content: Hero
      */
-    get_template_part( 'template-parts/content', 'header' );
+    get_template_part( 'template-parts/content', 'hero' );
     ?>
 
     <?php
@@ -25,6 +25,7 @@ get_header(); ?>
     /**
      * Content: Flexible Content
      */
+    get_template_part( 'template-parts/content', 'body' );
     ?>
 
   </div>
