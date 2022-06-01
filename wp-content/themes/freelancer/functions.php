@@ -158,7 +158,7 @@ function freelancer_scripts() {
 
   wp_enqueue_script( 'faq' );
 
-  if ( is_page_template('template-homepage.php' ) ) {
+  if ( is_page_template('template-homepage.php' ) || is_page_template('template-about.php' ) ) {
     wp_enqueue_script( 'slick' );
     wp_enqueue_script( 'slick-initializer' );
   }

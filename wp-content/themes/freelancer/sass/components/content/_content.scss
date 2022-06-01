@@ -67,6 +67,8 @@
 		.site-header__branding {
 			display: flex;
 			align-items: center;
+			position: relative;
+			z-index: 999;
 
 			.custom-logo-link {
 				margin-right: .5rem;
@@ -189,7 +191,3 @@
 		}
 	}
 }
-
-@import "content-header";
-@import "content-services";
-@import "content-text";

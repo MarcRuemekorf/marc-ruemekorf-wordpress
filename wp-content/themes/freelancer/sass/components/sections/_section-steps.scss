@@ -1,6 +1,8 @@
-.text {
+.steps {
 
-  &.text--black-white {
+  /* Theme
+  --------------------------------------------- */
+  &.steps--black-white {
     background-color: $color__gray-900;
     color: #fff;
 
@@ -14,12 +16,12 @@
       }
     }
 
-    .text__row {
+    .steps__row {
       border-color: $color__gray-700;
     }
   }
 
-  &.text--white-black {
+  &.steps--white-black {
     background-color: #fff;
     color: $color__gray-900;
 
@@ -33,11 +35,13 @@
       }
     }
 
-    .text__row {
+    .steps__row {
       border-color: $color__gray-200;
     }
   }
 
+  /* Margin & Padding
+  --------------------------------------------- */
   &.has-margin--top {
     margin-top: 4rem;
 
@@ -84,33 +88,51 @@
     }
   }
 
-  .text__container {
+  /* Other
+  --------------------------------------------- */
+  .steps__container {
     @include container;
     @include center-block;
   }
 
-  .text__heading {
+  .steps__heading {
     @include max-width('md');
     margin-top: 0;
     margin-bottom: 1.5rem;
-
-    @include screen('md') {
-      margin-bottom: 3rem;
-    }
   }
 
-  .text__subheading {
+  .steps__subheading {
     @include font-size('xl');
-    margin-bottom: 1.5rem;
-
-    @include screen('md') {
-      margin-bottom: 3rem;
-    }
   }
 
-  .text__rows {
+  .steps__rows {
+    margin: 3rem 0 0;
+    list-style: none;
+    padding: 0;
 
-    .text__row {
+    @include screen('sm') {
+      margin: 4rem 0 0;
+    }
+
+    @include screen('md') {
+      margin: 6rem 0 0;
+    }
+
+    .steps__row {
+
+      &:not(:last-child) {
+        padding-bottom: 1.5rem;
+        border-bottom-style: solid;
+        border-bottom-width: 2px;
+        margin-bottom: 3rem;
+      }
+
+      @include screen('md') {
+        display: grid;
+        grid-template-columns: repeat(2, minmax(0, 1fr));
+        column-gap: 2rem;
+        row-gap: 2rem;
+      }
 
       h1,
       h2,
@@ -120,44 +142,15 @@
         margin-top: 0;
       }
 
-      &.cols--1 {
-        @include max-width('md');
-      }
-
-      &.cols--2 {
-        @include max-width('lg');
+      .steps__count {
+        display: block;
+        @include font-size('6xl');
+        margin-bottom: 1.5rem;
 
         @include screen('md') {
-          display: grid;
-          grid-template-columns: repeat(2, minmax(0, 1fr));
-          column-gap: 2rem;
-          row-gap: 2rem;
+          @include font-size('8xl');
+          margin: 0;
         }
-      }
-
-      &.align--left {
-        margin-right: auto;
-      }
-      &.align--right {
-        margin-left: auto;
-      }
-      &.align--center {
-        margin-left: auto;
-        margin-right: auto;
-      }
-
-      &.divider--top {
-        padding-top: 1.5rem;
-        border-top-style: solid;
-        border-top-width: 2px;
-        margin-top: 3rem;
-      }
-
-      &.divider--bottom {
-        padding-bottom: 1.5rem;
-        border-bottom-style: solid;
-        border-bottom-width: 2px;
-        margin-bottom: 3rem;
       }
     }
   }

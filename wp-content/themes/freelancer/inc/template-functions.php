@@ -36,25 +36,66 @@ function freelancer_pingback_header() {
 }
 add_action( 'wp_head', 'freelancer_pingback_header' );
 
-
 if ( ! function_exists( 'freelancer_mce_buttons' ) ) {
   /**
-   * Activate additional MCE settings
+   * Add additional MCE settings to mce buttons
    * @param $buttons
    * @return mixed
    */
   function freelancer_mce_buttons( $buttons ) {
-    array_unshift( $buttons, 'fontsizeselect' ); // Add Font Size Select
+    array_splice($buttons, 1, 0, 'styleselect');
     return $buttons;
   }
 }
-add_filter( 'mce_buttons_2', 'freelancer_mce_buttons' );
+add_filter( 'mce_buttons', 'freelancer_mce_buttons' );
+
+function freelancer_mce_before_init_insert_formats( $init_array ) {
+  // Define the style_formats array
+  $style_formats = array(
+    // Each array child is a format with it's own settings
+    array(
+      'title' => 'Extra Large',
+      'selector' => 'p',
+      'classes' => 'text-xl',
+      'styles' => array(
+        'fontSize' => '24px'
+      )
+    ),
+    array(
+      'title' => 'Large',
+      'selector' => 'p',
+      'classes' => 'text-lg',
+      'exact'   => true,
+      'styles' => array(
+        'fontSize' => '18px'
+      )
+    ),
+    array(
+      'title' => 'Base',
+      'selector' => 'p',
+      'classes' => 'text-base',
+      'exact'   => true
+    ),
+    array(
+      'title' => 'Small',
+      'selector' => 'p',
+      'classes' => 'text-sm',
+    ),
+  );
+  $init_array['style_formats'] = wp_json_encode( $style_formats );
+
+  return $init_array;
+
+}
+add_filter( 'tiny_mce_before_init', 'freelancer_mce_before_init_insert_formats' );
 
 if ( ! function_exists( 'freelancer_mce_text_sizes' ) ) {
   /**
    * Customize mce editor font sizes
    * @param $initArray
    * @return mixed
+   *
+   * DEPRECATED
    */
   function freelancer_mce_text_sizes( $initArray ){
     $initArray['fontsize_formats'] = "11pt 12pt 14pt 18pt 24pt 42pt 60pt";

@@ -5,6 +5,7 @@
  * navigation support for dropdown menus.
  */
 ( function() {
+	const siteBody = document.body;
 	const siteNavigation = document.getElementById( 'site-navigation' );
 
 	// Return early if the navigation doesn't exist.
@@ -33,6 +34,7 @@
 
 	// Toggle the .toggled class and the aria-expanded value each time the button is clicked.
 	button.addEventListener( 'click', function() {
+		siteBody.classList.toggle( 'mobile-menu-open' );
 		siteNavigation.classList.toggle( 'toggled' );
 
 		if ( button.getAttribute( 'aria-expanded' ) === 'true' ) {

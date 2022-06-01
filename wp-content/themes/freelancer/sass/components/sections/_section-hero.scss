@@ -3,8 +3,8 @@
   &.hero--black-white {
     background-color: $color__gray-900;
     color: #fff;
-    padding-top: 3rem;
-    padding-bottom: 3rem;
+    padding-top: 4rem;
+    padding-bottom: 4rem;
 
     @include screen('sm') {
       padding-top: 6rem;
@@ -77,8 +77,12 @@
 
     @include screen('sm') {
       @include font-size('3xl');
-      margin-top: 6rem;
+      margin-top: 4rem;
       margin-left: auto;
+    }
+
+    @include screen('md') {
+      margin-top: 6rem;
     }
   }
 

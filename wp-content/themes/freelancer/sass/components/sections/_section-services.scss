@@ -1,6 +1,50 @@
 .services {
-  margin-top: 9rem;
-  margin-bottom: 9rem;
+
+  &.has-margin--top {
+    margin-top: 4rem;
+
+    @include screen('sm') {
+      margin-top: 6rem;
+    }
+
+    @include screen('md') {
+      margin-top: 9rem;
+    }
+  }
+  &.has-margin--bottom {
+    margin-bottom: 4rem;
+
+    @include screen('sm') {
+      margin-bottom: 6rem;
+    }
+
+    @include screen('md') {
+      margin-bottom: 9rem;
+    }
+  }
+
+  &.has-padding--top {
+    padding-top: 3rem;
+
+    @include screen('sm') {
+      padding-top: 4rem;
+    }
+
+    @include screen('md') {
+      padding-top: 6rem;
+    }
+  }
+  &.has-padding--bottom {
+    padding-bottom: 3rem;
+
+    @include screen('sm') {
+      padding-bottom: 4rem;
+    }
+
+    @include screen('md') {
+      padding-bottom: 6rem;
+    }
+  }
 
   .services__container {
     @include container;
@@ -19,8 +63,16 @@
 
   .services__posts {
     list-style: none;
-    margin: 6rem 0 0;
+    margin: 3rem 0 0;
     padding: 0;
+
+    @include screen('sm') {
+      margin: 4rem 0 0;
+    }
+
+    @include screen('md') {
+      margin: 6rem 0 0;
+    }
 
 
     @include screen('md') {

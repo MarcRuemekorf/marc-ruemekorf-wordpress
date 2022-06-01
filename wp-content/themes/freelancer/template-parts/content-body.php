@@ -84,9 +84,25 @@ if (have_rows('flexible_content')):
       $manual_select  = get_sub_field('cases_layout_manual_select');
       $post_objects   = get_sub_field('cases_layout_post_objects');
       $theme          = get_sub_field( 'cases_layout_theme' );
+      $margin         = get_sub_field( 'cases_layout_spacing' )['cases_layout_margin'];
+      $padding        = get_sub_field( 'cases_layout_spacing' )['cases_layout_padding'];
+      $spacing        = array();
+
+      if($margin && in_array('top', $margin) ) :
+        array_push($spacing, 'has-margin--top');
+      endif;
+      if($margin && in_array('bottom', $margin) ) :
+        array_push($spacing, 'has-margin--bottom');
+      endif;
+      if($padding && in_array('top', $padding) ) :
+        array_push($spacing, 'has-padding--top');
+      endif;
+      if($padding && in_array('bottom', $padding) ) :
+        array_push($spacing, 'has-padding--bottom');
+      endif;
       ?>
 
-      <section class="cases <?php echo 'cases--' . $theme ?>">
+      <section class="cases <?php echo 'cases--' . $theme ?> <?php echo implode(' ', $spacing); ?>">
         <div class="cases__container">
           <h2 class="cases__heading">
             <?php echo $heading; ?>
@@ -124,7 +140,7 @@ if (have_rows('flexible_content')):
                   <?php if (has_post_thumbnail()) : ?>
                     <div class="cases__image">
                       <a href="<?php echo esc_url(get_permalink()); ?>">
-                        <?php the_post_thumbnail('large'); ?>
+                        <?php the_post_thumbnail('full'); ?>
                       </a>
                     </div>
                   <?php endif; ?>
@@ -142,6 +158,7 @@ if (have_rows('flexible_content')):
     elseif ( get_row_layout() == 'text_layout' ):
       $heading    = get_sub_field( 'text_layout_heading');
       $subheading = get_sub_field( 'text_layout_subheading' );
+      $alignment  = get_sub_field( 'text_layout_alignment' );
       $theme      = get_sub_field( 'text_layout_theme' );
       $margin     = get_sub_field( 'text_layout_spacing' )['text_layout_margin'];
       $padding    = get_sub_field( 'text_layout_spacing' )['text_layout_padding'];
@@ -163,14 +180,20 @@ if (have_rows('flexible_content')):
 
       <section class="text <?php echo 'text--' . $theme ?> <?php echo implode(' ', $spacing); ?>">
         <div class="text__container">
-          <h2 class="text__heading">
-            <?php echo $heading; ?>
-          </h2>
-          <div class="text__subheading">
-            <?php echo $subheading; ?>
-          </div>
 
-          <?php if (have_rows('text_layout_repeater')) : ?>
+          <?php if( $heading ) : ?>
+            <h2 class="text__heading">
+              <?php echo $heading; ?>
+            </h2>
+          <?php endif;
+
+          if( $subheading ) : ?>
+            <div class="text__subheading">
+              <?php echo $subheading; ?>
+            </div>
+          <?php endif;
+
+          if (have_rows('text_layout_repeater')) : ?>
             <div class="text__rows">
               <?php while (have_rows('text_layout_repeater')) : the_row();
                 $columns = get_sub_field('text_repeater_columns');
@@ -178,7 +201,7 @@ if (have_rows('flexible_content')):
                 $class = get_sub_field('text_repeater_class');
                 $content = get_sub_field('text_repeater_content');
                 if (2 == $columns) : ?>
-                  <div class="text__row cols--2<?php echo ' divider--' . $divider; echo $class ? ' ' . $class : null; ?>">
+                  <div class="text__row cols--2<?php echo ' divider--' . $divider; echo ' align--' . $alignment; echo $class ? ' ' . $class : null; ?>">
                     <div class="col">
                       <?php echo $content['text_repeater_column_one'] ?>
                     </div>
@@ -187,7 +210,7 @@ if (have_rows('flexible_content')):
                     </div>
                   </div>
                 <?php else : ?>
-                  <div class="text__row cols--1<?php echo ' divider--' . $divider; echo $class ? ' ' . $class : null; ?>">
+                  <div class="text__row cols--1<?php echo ' divider--' . $divider; echo ' align--' . $alignment; echo $class ? ' ' . $class : null; ?>">
                     <div class="col">
                       <?php echo $content['text_repeater_column_one'] ?>
                     </div>
@@ -258,7 +281,7 @@ if (have_rows('flexible_content')):
       </section>
 
     <?php
-    // FAQ Layout
+    // Steps Layout
     elseif (get_row_layout() == 'steps_layout'):
       $heading    = get_sub_field('steps_layout_heading');
       $subheading = get_sub_field('steps_layout_subheading');
@@ -292,13 +315,13 @@ if (have_rows('flexible_content')):
           </div>
 
           <?php if (have_rows('steps_layout_repeater')) : ?>
-            <div class="steps__rows">
+            <ol class="steps__rows">
               <?php while (have_rows('steps_layout_repeater')) : the_row();
                 $class = get_sub_field('steps_repeater_class');
                 $text = get_sub_field('steps_repeater_text');
                 $count++;
                 if ( !empty($text) ) : ?>
-                  <div class="steps__row">
+                  <li class="steps__row">
                     <div class="steps__counter">
                       <span class="steps__count">
                         <?php echo '0' . $count; ?>
@@ -307,10 +330,10 @@ if (have_rows('flexible_content')):
                     <div class="steps__body">
                       <?php echo $text; ?>
                     </div>
-                  </div>
+                  </li>
                 <?php endif;
               endwhile; ?>
-            </div>
+            </ol>
           <?php endif; ?>
         </div>
       </section>

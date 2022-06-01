@@ -8,7 +8,7 @@
  *
  * @package Freelancer
  */
-$theme = get_field( 'hero_theme' )
+$theme = get_field( 'hero_theme' );
 ?>
 <!doctype html>
 <html <?php language_attributes(); ?>>
@@ -30,13 +30,23 @@ $theme = get_field( 'hero_theme' )
       <nav id="site-navigation" class="site-header__navigation">
         <div class="site-header__branding">
           <?php
+          $company_branding  = get_field('globals_header_branding', 'option');
           $company_details  = get_field('globals_company_details', 'option');
+          $company_logo = get_field( 'globals_company_logo', 'option' );
           ?>
           <div class="site-title">
             <a href="<?php echo esc_url(home_url('/')); ?>" rel="home">
-              <?php if ( $company_details['globals_company_name'] ) :
+              <?php if ( 'name' == $company_branding && $company_details['globals_company_name'] ) :
                 echo $company_details['globals_company_name'];
-              else :
+              elseif( 'logo' == $company_branding && $company_logo) : ?>
+                <a class="site-header__logo" href="<?php echo esc_url(home_url('/')); ?>">
+                  <?php if( 'white-black' == $theme ) : ?>
+                    <img src="<?php echo esc_url($company_logo[ 'globals_header_logo_dark' ]['url']); ?>" alt="<?php echo esc_attr($company_logo[ 'globals_header_logo_dark' ]['alt']); ?>" />
+                  <?php else : ?>
+                    <img src="<?php echo esc_url($company_logo[ 'globals_header_logo_light' ]['url']); ?>" alt="<?php echo esc_attr($company_logo[ 'globals_header_logo_light' ]['alt']); ?>" />
+                  <?php endif; ?>
+                </a>
+              <?php else :
                 bloginfo('name');
                 $freelancer_description = get_bloginfo('description', 'display');
                 if( $freelancer_description || is_customize_preview() ) : ?>
@@ -49,18 +59,20 @@ $theme = get_field( 'hero_theme' )
           </div>
         </div><!-- .site-branding -->
 
-        <button class="menu-toggle" aria-controls="primary-menu" aria-expanded="false">
-          <?php esc_html_e('Menu', 'freelancer'); ?>
-        </button>
-
         <?php
         wp_nav_menu(
           array(
-            'theme_location' => 'header-1',
-            'menu_id' => 'primary-menu',
+            'theme_location'  => 'header-1',
+            'container_class' => 'header-menu',
+            'menu_class'      => 'header-menu__menu',
+            'menu_id'         => 'primary-menu'
           )
         );
         ?>
+
+        <button class="menu-toggle" aria-controls="primary-menu" aria-expanded="false">
+          <span class="material-symbols-outlined icon">menu</span>
+        </button>
       </nav><!-- #site-navigation -->
     </div>
   </header><!-- #masthead -->
